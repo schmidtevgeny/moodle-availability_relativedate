@@ -81,7 +81,8 @@ class condition extends \core_availability\condition {
             'type' => 'relativedate',
             'n' => intval($this->relativenumber),
             'd' => intval($this->relativedwm),
-            's' => intval($this->relativestart)];
+            's' => intval($this->relativestart),
+        ];
     }
 
     /**
@@ -129,11 +130,15 @@ class condition extends \core_availability\condition {
         }
         $calc = $this->calc($course, $USER->id);
         if ($calc == 0) {
-            return '('. trim($this->get_debug_string()) . ')';
+            // return '('. trim($this->get_debug_string()) . ')';
+            if ($not)
+                return 'Прошло ' . trim($this->get_debug_string());
+            else
+                return 'Не прошло ' . trim($this->get_debug_string());
         }
         $a = new stdClass();
         $a->rnumber = userdate($calc, get_string('strftimedatetime', 'langconfig'));
-        $a->rtime = ($capability && $full) ? '('. trim($this->get_debug_string()) . ')' : '';
+        $a->rtime = ($capability && $full) ? '(' . trim($this->get_debug_string()) . ')' : '';
         $a->rela = '';
         return trim(get_string($frut, 'availability_relativedate', $a));
     }
@@ -145,7 +150,7 @@ class condition extends \core_availability\condition {
      */
     protected function get_debug_string() {
         return ' ' . $this->relativenumber . ' ' . self::options_dwm()[$this->relativedwm] . ' ' .
-               self::options_start($this->relativestart);
+            self::options_start($this->relativestart);
     }
 
     /**
@@ -178,7 +183,7 @@ class condition extends \core_availability\condition {
             1 => get_string('hours', 'availability_relativedate'),
             2 => get_string('days', 'availability_relativedate'),
             3 => get_string('weeks', 'availability_relativedate'),
-            4 => get_string('months', 'availability_relativedate')
+            4 => get_string('months', 'availability_relativedate'),
         ];
     }
 
