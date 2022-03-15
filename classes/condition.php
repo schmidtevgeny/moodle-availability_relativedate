@@ -132,9 +132,9 @@ class condition extends \core_availability\condition {
         if ($calc == 0) {
             // return '('. trim($this->get_debug_string()) . ')';
             if ($not)
-                return 'Прошло ' . trim($this->get_debug_string());
-            else
                 return 'Не прошло ' . trim($this->get_debug_string());
+            else
+            return 'Прошло ' . trim($this->get_debug_string());
         }
         $a = new stdClass();
         $a->rnumber = userdate($calc, get_string('strftimedatetime', 'langconfig'));
